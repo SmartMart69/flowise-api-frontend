@@ -1,3 +1,5 @@
+import fetch from "node-fetch";
+
 export const createPrediction = async (req, res) => {
   const { message } = req.body;
   console.log(message);
