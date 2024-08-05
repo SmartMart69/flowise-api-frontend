@@ -63,17 +63,25 @@ button:hover {
 }
 .welcome {
   width: 80%;
-  margin: 20px auto;
+  margin: 0 auto;
   text-align: center;
 }
 .welcome h2 {
   background-color: rgba(0, 0, 0, 0.7);
   padding: 10px 15px;
   border-radius: 10px;
+  margin: 0 auto;
+  line-height: 26px;
+  font-weight: normal;
+}
+#sessionid {
+  width: 180px;
+  margin-bottom: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #999999;
 }
 .eingabe {
   width: 100%;
-  padding: 20px;
 }
 .ausgabe {
   width: 50%;
@@ -131,9 +139,18 @@ button:hover {
   input {
     width: 85%;
   }
+  .welcome {
+    margin-top: 15px;
+  }
   .welcome img {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
     height: 150px;
     width: auto;
+    z-index: -1;
   }
 
   .ausgabe {

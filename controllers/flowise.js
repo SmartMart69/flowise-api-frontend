@@ -1,13 +1,15 @@
 import fetch from "node-fetch";
 
 export const createPrediction = async (req, res) => {
-  const { message } = req.body;
-  console.log(message);
+  const { message, sessionId } = req.body;
+  console.log(message, sessionId);
 
   try {
-    // Call the Flowise API endpoint here..
     const flowiseData = {
       question: message,
+      overrideConfig: {
+        sessionId: sessionId || "",
+      },
     };
 
     //hier für die chatgurus logik einfügen

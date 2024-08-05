@@ -1,9 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="de">
   <head>
-    <link rel="manifest" href="/manifest.json" />
-
-    <meta name="theme-color" content="#ffffff" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,15 +14,16 @@
         <img src="chief2.png" />
 
         <h2>
-          Du kannst jetzt mit dem Schamanen schreiben, er wird sich immer an dich
-          erinnern.
+          Du kannst jetzt mit dem Schamanen schreiben - er wird sich immer an
+          dich erinnern, wenn du eine Kennung eingibst (merke sie dir für deinen
+          nächsten Besuch).
         </h2>
       </div>
       <div class="eingabe">
         <form>
-          <input id="message" placeholder="Deine Nachricht" />
-          <button type="submit" id="message-btn">
-            Absenden
+          <input type="text" id="sessionid" placeholder="Deine Kennung" />
+          <input type="text" id="message" placeholder="Deine Nachricht" />
+          <button type="submit" id="message-btn">Absenden</button>
         </form>
       </div>
       <div class="ausgabe">
