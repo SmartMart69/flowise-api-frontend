@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.post("/api/flowise", createPrediction);
-app.delete("/api/delete-conversation", deleteConversation); // Definiere den neuen Endpunkt
+app.post("/api/delete-conversation", deleteConversation); // Definiere den neuen Endpunkt
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -22,11 +22,9 @@ export const deleteConversation = async (req, res) => {
         .json({ message: "Fehler beim Löschen der Konversation." });
     }
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Fehler beim Löschen der Konversation.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Löschen der Konversation fehlgeschlagen.",
+      error: error.message,
+    });
   }
 };
