@@ -88,8 +88,9 @@ button:hover {
   margin: 20px auto;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
+  padding: 0 10px;
   border-radius: 10px;
-  text-align: center;
+  text-align: right;
 }
 
 .fuhta {
