@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export const getConversationHistory = async (req, res) => {
+export const getConversation = async (req, res) => {
   const { sessionId } = req.body;
 
   try {
