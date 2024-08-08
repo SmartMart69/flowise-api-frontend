@@ -9,6 +9,7 @@ export const createPrediction = async (req, res) => {
       question: message,
       overrideConfig: {
         sessionId: sessionId || "",
+        pineconeNamespace: "HR",
       },
     };
 
