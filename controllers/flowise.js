@@ -1,19 +1,18 @@
 import fetch from "node-fetch";
 
 export const createPrediction = async (req, res) => {
-  const { message, sessionId } = req.body;
-  console.log(message, sessionId);
+  const { message, sessionId, abteilung } = req.body;
+  console.log(message, sessionId, abteilung);
 
   try {
     const flowiseData = {
       question: message,
       overrideConfig: {
         sessionId: sessionId || "",
-        pineconeNamespace: "HR",
+        pineconeNamespace: abteilung || "Sonstige",
       },
     };
 
-    //hier für die chatgurus logik einfügen
     const response = await fetch(
       `${process.env.FLOWISE_URL}/api/v1/prediction/${process.env.FLOW_ID}`,
       {
