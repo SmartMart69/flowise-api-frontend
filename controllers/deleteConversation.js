@@ -4,27 +4,35 @@ export const deleteConversation = async (req, res) => {
   const { sessionId } = req.body;
 
   try {
+    if (!sessionId) {
+      return res.status(400).json({ error: "sessionId ist erforderlich." });
+    }
+
     const response = await fetch(
-      `https://immune-sawfish-52912.upstash.io/DEL/${sessionId}`,
+      `${process.env.FLOWISE_URL}/api/v1/chatmessage/${process.env.FLOW_ID}?sessionId=${sessionId}`,
       {
-        method: "GET",
+        method: "DELETE",
         headers: {
-          Authorization: `Bearer ${process.env.UPSTASH_API_KEY}`, // Verwende den API-Schlüssel aus der Umgebungsvariable
+          "Content-Type": "application/json",
+          Authorization:
+            "Basic " +
+            Buffer.from(
+              process.env.FLOWISE_USERNAME + ":" + process.env.FLOWISE_PASSWORD
+            ).toString("base64"),
         },
       }
     );
 
-    if (response.ok) {
-      res.status(200).json({ message: "Konversation erfolgreich gelöscht." });
-    } else {
-      res
+    if (!response.ok) {
+      return res
         .status(response.status)
-        .json({ message: "Fehler beim Löschen der Konversation." });
+        .json({ error: "Fehler beim Löschen der Nachrichten." });
     }
+
+    const result = await response.json();
+    return res.status(200).json({ message: "Nachrichten gelöscht.", result });
   } catch (error) {
-    res.status(500).json({
-      message: "Löschen der Konversation fehlgeschlagen.",
-      error: error.message,
-    });
+    console.error("Fehler:", error);
+    return res.status(500).json({ error: "Interner Serverfehler." });
   }
 };
