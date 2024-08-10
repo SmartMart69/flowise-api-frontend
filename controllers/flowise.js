@@ -1,10 +1,20 @@
 import fetch from "node-fetch";
 
 export const createPrediction = async (req, res) => {
-  const { message, sessionId, abteilung } = req.body;
-  console.log(message, sessionId, abteilung);
+  const {
+    message,
+    sessionId,
+    abteilung,
+    imageBase64,
+    imageName,
+    imageMime,
+    audioBase64,
+    audioName,
+    audioMime,
+  } = req.body;
 
   try {
+    // Grundlegende Daten für die Prediction API
     const flowiseData = {
       question: message,
       overrideConfig: {
@@ -12,6 +22,32 @@ export const createPrediction = async (req, res) => {
         pineconeNamespace: abteilung || "Sonstige",
       },
     };
+
+    // Überprüfe, ob Bilddaten vorhanden sind
+    if (imageBase64 && imageName && imageMime) {
+      if (!flowiseData.uploads) {
+        flowiseData.uploads = [];
+      }
+      flowiseData.uploads.push({
+        data: imageBase64,
+        type: "file",
+        name: imageName,
+        mime: imageMime,
+      });
+    }
+
+    // Überprüfe, ob Audiodaten vorhanden sind
+    if (audioBase64 && audioName && audioMime) {
+      if (!flowiseData.uploads) {
+        flowiseData.uploads = [];
+      }
+      flowiseData.uploads.push({
+        data: audioBase64,
+        type: "audio",
+        name: audioName,
+        mime: audioMime,
+      });
+    }
 
     const response = await fetch(
       `${process.env.FLOWISE_URL}/api/v1/prediction/${process.env.FLOW_ID}`,
