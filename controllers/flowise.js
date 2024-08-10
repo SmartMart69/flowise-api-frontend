@@ -27,7 +27,7 @@ export const createPrediction = async (req, res) => {
     // Überprüfe, ob Bilddaten vorhanden sind
     if (imageBase64 && imageName && imageMime) {
       console.log("Bilddaten vorhanden:", {
-        imageBase64: imageBase64.substring(0, 100),
+        imageBase64: imageBase64.substring(0, 10),
         imageName,
         imageMime,
       }); // Zeigt die ersten 100 Zeichen des Base64-Strings an
@@ -55,8 +55,6 @@ export const createPrediction = async (req, res) => {
       });
     }
 
-    console.log("Flowise Data vor dem Senden:", flowiseData); // Überprüfe das endgültige Objekt, das gesendet wird
-
     const response = await fetch(
       `${process.env.FLOWISE_URL}/api/v1/prediction/${process.env.FLOW_ID}`,
       {
@@ -74,7 +72,8 @@ export const createPrediction = async (req, res) => {
 
     res.status(200).json({ message: data.text });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    console.error("Fehler bei der Verarbeitung:", error); // Gebe den gesamten Fehler aus
     res.status(500).json({ message: error.message });
   }
 };
