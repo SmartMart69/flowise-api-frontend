@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 
 export const createPrediction = async (req, res) => {
+  console.log("Empfangene Daten im req.body:", req.body); // Überprüfe alle empfangenen Daten
   const {
     message,
     sessionId,
@@ -25,6 +26,11 @@ export const createPrediction = async (req, res) => {
 
     // Überprüfe, ob Bilddaten vorhanden sind
     if (imageBase64 && imageName && imageMime) {
+      console.log("Bilddaten vorhanden:", {
+        imageBase64: imageBase64.substring(0, 100),
+        imageName,
+        imageMime,
+      }); // Zeigt die ersten 100 Zeichen des Base64-Strings an
       if (!flowiseData.uploads) {
         flowiseData.uploads = [];
       }
@@ -48,6 +54,8 @@ export const createPrediction = async (req, res) => {
         mime: audioMime,
       });
     }
+
+    console.log("Flowise Data vor dem Senden:", flowiseData); // Überprüfe das endgültige Objekt, das gesendet wird
 
     const response = await fetch(
       `${process.env.FLOWISE_URL}/api/v1/prediction/${process.env.FLOW_ID}`,
