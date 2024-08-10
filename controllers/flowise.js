@@ -1,7 +1,6 @@
 import fetch from "node-fetch";
 
 export const createPrediction = async (req, res) => {
-  console.log("Empfangene Daten im req.body:", req.body); // Überprüfe alle empfangenen Daten
   const {
     message,
     sessionId,
@@ -26,16 +25,11 @@ export const createPrediction = async (req, res) => {
 
     // Überprüfe, ob Bilddaten vorhanden sind
     if (imageBase64 && imageName && imageMime) {
-      console.log("Bilddaten vorhanden:", {
-        imageBase64: imageBase64.substring(0, 10),
-        imageName,
-        imageMime,
-      }); // Zeigt die ersten 100 Zeichen des Base64-Strings an
       if (!flowiseData.uploads) {
         flowiseData.uploads = [];
       }
       flowiseData.uploads.push({
-        data: imageBase64,
+        data: `data:${imageMime};base64,${imageBase64}`, // Inkludiere das vollständige Data-URL-Format
         type: "file",
         name: imageName,
         mime: imageMime,
@@ -48,7 +42,7 @@ export const createPrediction = async (req, res) => {
         flowiseData.uploads = [];
       }
       flowiseData.uploads.push({
-        data: audioBase64,
+        data: `data:${audioMime};base64,${audioBase64}`, // Inkludiere das vollständige Data-URL-Format
         type: "audio",
         name: audioName,
         mime: audioMime,
@@ -72,8 +66,7 @@ export const createPrediction = async (req, res) => {
 
     res.status(200).json({ message: data.text });
   } catch (error) {
-    // console.log(error);
-    console.error("Fehler bei der Verarbeitung:", error); // Gebe den gesamten Fehler aus
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
 };
