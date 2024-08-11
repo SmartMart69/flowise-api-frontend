@@ -24,10 +24,9 @@ export const getConversation = async (req, res) => {
     );
 
     const data = await response.json();
-    console.log("API response data:", data);
-    const history = data.result.map((entry) => JSON.parse(entry));
 
-    res.status(200).json({ history });
+    // Die ungefilterten Daten direkt zurückgeben
+    res.status(200).json(data);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
