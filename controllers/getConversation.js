@@ -4,12 +4,21 @@ export const getConversation = async (req, res) => {
   const { sessionId } = req.body;
 
   try {
+    if (!sessionId) {
+      return res.status(400).json({ error: "sessionId ist erforderlich." });
+    }
+
     const response = await fetch(
-      `https://immune-sawfish-52912.upstash.io/LRANGE/${sessionId}/0/-1`,
+      `${process.env.FLOWISE_URL}/api/v1/chatmessage/${process.env.FLOW_ID}?sessionId=${sessionId}`,
       {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${process.env.UPSTASH_API_KEY}`,
+          "Content-Type": "application/json",
+          Authorization:
+            "Basic " +
+            Buffer.from(
+              process.env.FLOWISE_USERNAME + ":" + process.env.FLOWISE_PASSWORD
+            ).toString("base64"),
         },
       }
     );
