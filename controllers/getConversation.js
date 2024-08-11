@@ -24,6 +24,7 @@ export const getConversation = async (req, res) => {
     );
 
     const data = await response.json();
+    console.log("API response data:", data);
     const history = data.result.map((entry) => JSON.parse(entry));
 
     res.status(200).json({ history });
