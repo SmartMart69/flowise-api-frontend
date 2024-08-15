@@ -1,5 +1,3 @@
-import fetch from "node-fetch";
-
 export const deleteConversation = async (req, res) => {
   const { sessionId } = req.body;
 
