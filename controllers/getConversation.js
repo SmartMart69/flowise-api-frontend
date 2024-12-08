@@ -12,11 +12,7 @@ export const getConversation = async (req, res) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Basic " +
-            Buffer.from(
-              process.env.FLOWISE_USERNAME + ":" + process.env.FLOWISE_PASSWORD
-            ).toString("base64"),
+          Authorization: `Bearer ${process.env.FLOWISE_API_KEY}`,
         },
       }
     );
